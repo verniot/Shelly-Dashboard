@@ -1,0 +1,5 @@
+npm install chart.js react-chartjs-2
+npm install chartjs-adapter-date-fns date-fns
+
+sliding time window with live updates
+npm run dev za start

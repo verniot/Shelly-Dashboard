@@ -1,0 +1,52 @@
+[
+    {
+        "id": "aa78213650e84334",
+        "type": "tab",
+        "label": "Fake Shelly RPC",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "0ac657522b7db4df",
+        "type": "http in",
+        "z": "aa78213650e84334",
+        "name": "Shelly.GetStatus",
+        "url": "/rpc/Shelly.GetStatus",
+        "method": "get",
+        "upload": false,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "13e6a961f199613f"
+            ]
+        ]
+    },
+    {
+        "id": "13e6a961f199613f",
+        "type": "function",
+        "z": "aa78213650e84334",
+        "name": "Generate Shelly Status",
+        "func": "const now = Math.floor(Date.now() / 1000);\n\nfunction rand(min, max, fixed = 2) {\n    return +(Math.random() * (max - min) + min).toFixed(fixed);\n}\nfunction randInt(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\nfunction phase() {\n    const voltage = rand(228, 232, 1);\n    const current = rand(0.02, 0.5, 3);\n    const act = +(voltage * current * rand(0.6, 0.9)).toFixed(1);\n    const aprt = +(voltage * current).toFixed(1);\n    return {\n        current,\n        voltage,\n        act_power: act,\n        aprt_power: aprt,\n        pf: +(act / aprt).toFixed(2),\n        freq: 50.0\n    };\n}\n\nconst a = phase();\nconst b = phase();\nconst c = phase();\n\nmsg.payload = {\n    ble: {},\n    bthome: { errors: [\"bluetooth_disabled\"] },\n    cloud: { connected: true },\n\n    \"em:0\": {\n        id: 0,\n        a_current: a.current,\n        a_voltage: a.voltage,\n        a_act_power: a.act_power,\n        a_aprt_power: a.aprt_power,\n        a_pf: a.pf,\n        a_freq: 50.0,\n\n        b_current: b.current,\n        b_voltage: b.voltage,\n        b_act_power: b.act_power,\n        b_aprt_power: b.aprt_power,\n        b_pf: b.pf,\n        b_freq: 50.0,\n\n        c_current: c.current,\n        c_voltage: c.voltage,\n        c_act_power: c.act_power,\n        c_aprt_power: c.aprt_power,\n        c_pf: c.pf,\n        c_freq: 50.0,\n\n        n_current: +(a.current + b.current + c.current).toFixed(3),\n        total_current: +(a.current + b.current + c.current).toFixed(3),\n        total_act_power: +(a.act_power + b.act_power + c.act_power).toFixed(3),\n        total_aprt_power: +(a.aprt_power + b.aprt_power + c.aprt_power).toFixed(3),\n        user_calibrated_phase: [\"n\"]\n    },\n\n    \"emdata:0\": {\n        id: 0,\n        a_total_act_energy: rand(90000, 100000, 2),\n        a_total_act_ret_energy: rand(0, 5, 2),\n        b_total_act_energy: rand(10000, 20000, 2),\n        b_total_act_ret_energy: rand(0, 5, 2),\n        c_total_act_energy: rand(15000, 25000, 2),\n        c_total_act_ret_energy: rand(0, 30, 2),\n        total_act: rand(120000, 150000, 2),\n        total_act_ret: rand(0, 50, 2)\n    },\n\n    eth: { ip: \"192.168.1.204\", ip6: [\"fe80::ae15:18ff:fe7b:870f\"] },\n    modbus: {},\n    mqtt: { connected: false },\n\n    \"script:1\": { id: 1, running: false, mem_free: 25200, cpu: 0 },\n    \"script:2\": { id: 2, running: false, mem_free: 25200, cpu: 0 },\n    \"script:3\": { id: 3, running: false, mem_free: 25200, cpu: 0 },\n\n    \"switch:100\": {\n        id: 100,\n        source: \"SHC\",\n        output: false,\n        temperature: { tC: rand(22, 28, 1), tF: rand(72, 82, 1) }\n    },\n\n    sys: {\n        mac: \"AC15187B870C\",\n        restart_required: false,\n        time: new Date().toLocaleTimeString(\"en-GB\", { hour12: false }),\n        unixtime: now,\n        last_sync_ts: now - randInt(60, 600),\n        uptime: randInt(100000, 900000),\n        ram_size: 244520,\n        ram_free: randInt(90000, 140000),\n        ram_min_free: 103012,\n        fs_size: 524288,\n        fs_free: randInt(150000, 220000),\n        cfg_rev: 25,\n        kvs_rev: 2,\n        schedule_rev: 0,\n        webhook_rev: 0,\n        btrelay_rev: 0,\n        available_updates: { beta: { version: \"1.7.4-beta2\" } },\n        reset_reason: 3,\n        utc_offset: 3600\n    },\n\n    \"temperature:0\": { id: 0, tC: rand(24, 30, 1), tF: rand(75, 86, 1) },\n    wifi: { sta_ip: null, status: \"disconnected\", ssid: null, rssi: 0, sta_ip6: null },\n    ws: { connected: false }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "14b2ddad6a1154fb"
+            ]
+        ]
+    },
+    {
+        "id": "14b2ddad6a1154fb",
+        "type": "http response",
+        "z": "aa78213650e84334",
+        "name": "RPC Response",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 700,
+        "y": 120,
+        "wires": []
+    }
+]

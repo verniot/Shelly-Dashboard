@@ -1,0 +1,9 @@
+/* src/App.css */
+/* OLD DEMO --> Not used!! */
+
+#root {
+  max-width: 1400px;   /* or remove if you want full-width */
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+}
