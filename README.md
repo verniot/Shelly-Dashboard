@@ -1,10 +1,9 @@
 # Description
 
-A web-based dashboard built with React and Vite for real-time electrical diagnostics of ventilation systems utilizing Shelly Pro 3EM energy meter and contactor-based motor control (via Shelly Pro 4PMs). The application supports fast identification of startup-related issues such as current spikes, voltage sags, and load irregularities.
+A web-based real-time monitoring and diagnostics dashboard built with React and Vite for electrical analysis of ventilation systems using Shelly Pro 3EM energy meters and Shelly Pro 4PM relay controllers. The application provides high-resolution live readouts, historical charting, and dynamic multi-graph visualization of currents, voltages, power, energy, and temperatures. It enables fast identification of startup-related and operational issues such as current spikes, voltage sags, phase imbalance, abnormal power consumption, and load irregularities, making it a practical diagnostic tool for commissioning, maintenance, and long-term system stability analysis.
 
-
-# SHELLY DASHBOARD (React + Vite + Chart.js) — ASCII UML (Component + Data Flow)
-
+## SHELLY DASHBOARD (React + Vite + Chart.js) — ASCII UML (Component + Data Flow)
+```text
 +--------------------+          +-------------------------+
 |   Vite Dev Server  |          |  Shelly Device (IP)     |
 |  (proxy /rpc -> )  |          |  /rpc/Shelly.GetStatus  |
@@ -114,6 +113,7 @@ Shared styling / utilities
 |  cardStyle       |       | getTimeUnit(ms)|
 |  panel tokens    |       +----------------+
 +------------------+
+```
 
 ## License
 
