@@ -1,0 +1,54 @@
+File Tree:
+
+SHELLY-DASHBOARD/
+├── src/
+│   └── api/
+│       └── shellyClient.js
+│   └── assets/
+│   └── components/
+│       └── ChartPanel.jsx
+│       └── LineGraph.jsx
+│       └── LiveReadout.jsx
+│       └── MinMaxReadout.jsx
+│       └── ShellyDashboard.jsx
+│   └── config/
+│       └── seriesCatalog.js
+│   └── domain/
+│       └── parseShellyData.js
+│   └── hooks/
+│       └── useChartPanels.js
+│       └── useShellyStatus.js
+│   └── styles/
+│       └── uiStyles.js
+│   └── utils/
+│       └── time.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── eslint.config.js
+├── index.html
+├── package.json
+└── vite.config.js
+
+Documentation details for:
+
+Core Architecture
+
+   useShellyStatus.js	 Custom React Hook (Polling + Data History)
+   useChartPanels.js	 Custom React Hook (Chart Panel State Manager)
+   parseShellyData.js	 Domain transformation (parser)
+   seriesCatalog.js	 Metric Registry / Configuration Layer
+
+Rendering & UI
+
+   ShellyDashboard.jsx	React Component (Main Feature / Orchestrator)
+   ChartPanel.jsx	React Component (Chart Container + Controls)
+   LineGraph.jsx	React Component (Chart Renderer / Visualization Engine)
+   LiveReadout.jsx	React Component (Live Value Table)
+   MinMaxReadout.jsx	React Component (Statistics Readout: Min/Max)
+
+Supporting Utilities
+
+   shellyClient.js	API Client (HTTP)
+   time.js		Utility function (time scale selection)
