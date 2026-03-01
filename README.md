@@ -4,7 +4,7 @@ A web-based real-time monitoring and diagnostics dashboard built with React and 
 
 # Documentation
 
-Comprehensive technical documentation is available in the /documents folder.
+Comprehensive technical documentation is available in the /documentation folder.
 The documentation includes:
 
 - File-by-file module reference
