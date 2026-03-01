@@ -128,6 +128,111 @@ Shared styling / utilities
 |  panel tokens    |       +----------------+
 +------------------+
 ```
+## Running the Application
+
+Prerequisites
+-------------
+
+Make sure the following are installed on your system:
+
+- Node.js (LTS version recommended, ≥ 18.x)
+- npm (included with Node.js)
+
+Verify installation:
+
+    node -v
+    npm -v
+
+
+Clone the Repository
+--------------------
+
+    git clone https://github.com/verniot/Shelly-Dashboard.git
+    cd Shelly-Dashboard
+
+
+Install Dependencies
+--------------------
+
+Inside the project root folder, run:
+
+    npm install
+
+This will install React, Vite, Chart.js, and all required project dependencies.
+
+
+Configure Device Access (Important)
+-----------------------------------
+
+The dashboard fetches real-time data from a local device
+(Shelly Pro 3EM or IMP Pump).
+
+Open:
+
+    vite.config.js
+
+Ensure the proxy is configured correctly:
+
+    server: {
+      proxy: {
+        "/rpc": {
+          target: "http://192.168.1.100",  // Replace with your device IP
+          changeOrigin: true
+        }
+      }
+    }
+
+Replace the IP address with your actual device IP.
+
+
+Using Node-RED for Simulation (Optional)
+----------------------------------------
+
+If you do not have a physical device available,
+you can simulate it using Node-RED.
+
+1.Install Node-RED:
+
+    npm install -g --unsafe-perm node-red
+
+2.Start Node-RED:
+
+    node-red
+
+Open in browser:
+
+    http://localhost:1880
+
+3.Import the simulation flow:
+
+   - Open the Node-RED editor
+   - Click Menu → Import
+   - Import the flow file from the repository's Node-RED folder
+   - Click Deploy
+
+4.Update the proxy target in vite.config.js:
+
+    target: "http://localhost:1880"
+
+Restart the development server after making changes.
+
+Note:
+The simulated values are randomly generated and may appear unusual.
+This is expected behavior.
+
+
+Start the Development Server
+----------------------------
+
+    npm run dev
+
+Vite will start a local development server.
+
+You should see a message similar to:
+
+    Local: http://localhost:5173/
+
+Open that URL in your browser.
 
 ## License
 
